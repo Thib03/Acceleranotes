@@ -768,14 +768,14 @@ function preload()
   //var input = WebMidi.getInputByName("Axiom Pro 25 USB A In");
   var input = WebMidi.inputs[0];
 
-  console.log("c'est la bonne");
-  
-  input.addListener('noteon', "all", function(e) {
-    console.log("Pitch value: " + e.value);
-  });
+  console.log("that's the one");
 }
 
 function setup() {
+  input.addListener('noteon', "all", function(e) {
+    console.log("Pitch value: " + e.value);
+  });
+
   createCanvas(windowWidth, windowHeight);
   //createCanvas(400,400);
 
