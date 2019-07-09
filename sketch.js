@@ -760,15 +760,18 @@ function preload()
 
   //A5 = loadSound('A5');
 
+  console.log("avant");
+
   WebMidi.enable(function (err) {
+    if (err) {
+      console.log("WebMidi could not be enabled.", err);
+    }
+    else {
+      console.log("WebMidi enabled!");
+    }
+  });
 
-  if (err) {
-    console.log("WebMidi could not be enabled.", err);
-  } else {
-    console.log("WebMidi enabled!");
-  }
-
-});
+  console.log("après");
 }
 
 function setup() {
