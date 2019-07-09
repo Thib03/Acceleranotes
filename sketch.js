@@ -837,6 +837,8 @@ function setup() {
   //text('ou',width/2,25.5*height/40);
 
   noLoop();
+
+  console.log("après");
 }
 
 function windowResized() {
