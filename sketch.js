@@ -750,7 +750,7 @@ function preload()
   loadJSON(myUrl+'listscore&g=1',gotData);
 
   clefSol = loadImage('clef_sol.png');
-  //clefFa = loadImage('clef_fa.png');
+  clefFa = loadImage('clef_fa.png');
   clefUt = loadImage('clef_ut.png');
 
   fontM = loadFont('medium.otf');
@@ -760,18 +760,10 @@ function preload()
 
   //A5 = loadSound('A5');
 
-  console.log("avant");
-
   WebMidi.enable(function (err) {
-    if (err) {
-      console.log("WebMidi could not be enabled.", err);
-    }
-    else {
-      console.log("WebMidi enabled!");
-    }
+    console.log(WebMidi.inputs);
+    console.log(WebMidi.outputs);
   });
-
-  console.log("après");
 }
 
 function setup() {
@@ -869,8 +861,6 @@ function windowResized() {
 var fps, difficulty, limit;
 
 function draw() {
-
-console.log("hey");
 
   fps = frameRate();
   if (fps > 10) {
