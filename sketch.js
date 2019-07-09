@@ -750,7 +750,7 @@ function preload()
   loadJSON(myUrl+'listscore&g=1',gotData);
 
   clefSol = loadImage('clef_sol.png');
-  clefFa = loadImage('clef_fa.png');
+  //clefFa = loadImage('clef_fa.png');
   clefUt = loadImage('clef_ut.png');
 
   fontM = loadFont('medium.otf');
