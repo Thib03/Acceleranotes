@@ -156,7 +156,7 @@ class Button
       case 'la': f = 0.275;break;
       case 'si': f = 0.1; break;
     }
-    
+
     this.rY = random(8, 22) - 21 * f;
     this.rW = random(0.4, 0.8)     * (0.3 + 1.3*f);
     this.rH = random(0.5, 1.3) * (0.1 + 2.6*f);
@@ -200,7 +200,7 @@ class Button
     noStroke();
 
     this.w = 3.5 * marge * (1.1 + 0.9*this.rW);
-    
+
     this.h = 25 * pas * (1 + this.rH);
 
     fill(255);
@@ -335,41 +335,41 @@ function drawClefs() {
   imageMode(CENTER);
 
   strokeWeight(factor / 4);
-  
+
   let x, y, r;
-  
+
   x = width / 2 - 10 * factor;
   y = height / 2 - 1.5 * factor + dy;
   r = 4.2 * factor;
-  
+
   circle(x, y, r);
   image(clefSol,x, y + factor / 6,
     117 / 25 * factor, 200 / 25 * factor);
-  
+
   if (help && clef == 0) {
     stroke(noir);
     line(x-r,y-r,x+r,y-r);
     noStroke();
   }
-  
+
   x = width/2;
-  
+
   circle(x, y, r);
   image(clefFa, x, y,
     180 / 59 * factor, 200 / 59 * factor);
-  
+
   if (help && clef == 1) {
     stroke(noir);
     line(x-r,y-r,x+r,y-r);
     noStroke();
   }
-  
+
   x = width/2 + 10 * factor;
 
   circle(x, y, r);
   image(clefUt, x, y,
     135 / 50 * factor, 200 / 50 * factor);
-  
+
   if (help && clef == 2) {
     stroke(noir);
     line(x-r,y-r,x+r,y-r);
@@ -508,7 +508,7 @@ function drawButtons() {
     /*noStroke();
     fill(d==button?0:200);
     circle(x,y,3*marge);
-    
+
     textAlign(CENTER,CENTER);
     textSize(2.6*marge);
     fill(d==button?200:0);
@@ -541,7 +541,7 @@ function drawPseudoButton()
     width / 2, 17 * height / 40 - 6 * pas + dy);*/
 
   let decalage = 1.3;
-  
+
   //fill(225);
   fill(colButtons);
   ellipse(width / 2, height / 2 + decalage*dy, 18 * factor , 9 * factor);
@@ -564,7 +564,7 @@ function drawLostButtons()
     width / 2, 17 * height / 40 - 6 * pas + dy);*/
 
   let decalage = 1.3;
-  
+
   //fill(225);
   fill(colButtons);
   circle(width / 2 - 6 * factor, height / 2 + decalage*dy, 4.5 * factor);
@@ -639,25 +639,25 @@ function loose() {
     str = 'Perdu !';
   }
   text(str, width / 2, height / 4.2);
-  
+
   fill(gris);
   textFont(fontL);
   textSize(2 * factor);
-  
+
   textAlign(CENTER, CENTER);
   text('Record :'+' '+highscore+(pseudo=='anonyme'?'':' ( '+pseudo+' )'),
     width / 2 + 0.2*factor, height / 8.2);
   //textAlign(LEFT, CENTER);
   //text(' '+highscore+(pseudo=='anonyme'?'':' ( '+pseudo+' )'),
   //  width / 2 + 0.2*factor, height / 8.2);
-  
+
   //textAlign(RIGHT, CENTER);
   text('Score :'+' '+nbrn,
     width / 2 + 0.2*factor, height / 6.3);
   //textAlign(LEFT, CENTER);
   //text(' '+nbrn,
   //  width / 2 + 0.2*factor, height / 6.3);
-  
+
   //textAlign(CENTER, CENTER);
 
   button = -1;
@@ -697,7 +697,7 @@ function refresh()
   noStroke();
   fill(255);
   rect(0,0,width,height);
-  
+
   if (help) {
     drawHelp();
     adjustButtons();
@@ -748,20 +748,30 @@ function gotData(data)
 function preload()
 {
   loadJSON(myUrl+'listscore&g=1',gotData);
-  
+
   clefSol = loadImage('clef_sol.png');
   clefFa = loadImage('clef_fa.png');
   clefUt = loadImage('clef_ut.png');
 
   fontM = loadFont('medium.otf');
   fontL = loadFont('light.otf');
-  
+
   //soundFormats('mp3');
-  
+
   //A5 = loadSound('A5');
+
+  WebMidi.enable(function (err) {
+
+  if (err) {
+    console.log("WebMidi could not be enabled.", err);
+  } else {
+    console.log("WebMidi enabled!");
+  }
+
+});
 }
 
-function setup() {  
+function setup() {
   createCanvas(windowWidth, windowHeight);
   //createCanvas(400,400);
 
@@ -790,14 +800,14 @@ function setup() {
 
   fill(gris);
   textSize(2 * factor);
-  
+
   textAlign(CENTER,CENTER);
   text('Record :'+' '+highscore+(pseudo=='anonyme'?'':' ( '+pseudo+' )'),
        width / 2 + 0.2*factor, height / 8.2);
   //textAlign(LEFT,CENTER);
   //text(' '+highscore+(pseudo=='anonyme'?'':' ( '+pseudo+' )'),
   //     width / 2 + 0.2*factor, height / 8.2);
-  
+
   //textAlign(CENTER, CENTER);
 
   fill(noir);
@@ -849,7 +859,7 @@ function windowResized() {
   } else {
     loose(false);
   }*/
-  
+
   refresh();
 }
 
@@ -898,7 +908,7 @@ function draw() {
     /*textAlign(LEFT, CENTER);
     text(' '+nbrn,
          width / 2 + 0.2*factor, 6 * height / 40);*/
-  
+
     //textAlign(CENTER, CENTER);
 
     drawPortee();
@@ -1005,7 +1015,7 @@ function mousePressed() {
         restart();
         //refresh();
       }
-      
+
       x = width / 2 + 6 * factor;
       dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
       if (dist <= 5 * factor) {
@@ -1025,9 +1035,9 @@ function mousePressed() {
       if (dist <= 1)
       {
         cursor(ARROW);
-        
+
         pseudo = window.prompt('Inscris ton nom :');
-        
+
         if (pseudo == null ||
             pseudo == '' ||
             pseudo == 'null') {
@@ -1040,7 +1050,7 @@ function mousePressed() {
         loose();
       }
       var i;
-      
+
       while(httpGet(myUrl+'setscore&g=1&s='+highscore+'&p='+pseudo) == null)
       {
         i++;
@@ -1133,7 +1143,7 @@ function mouseMoved() {
       if (dist <= 4.5 * factor) {
         cursor(HAND);
       }
-      
+
       x = width / 2 + 6 * factor;
       dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
       if (dist <= 5 * factor) {
