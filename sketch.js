@@ -761,8 +761,8 @@ function preload()
   //A5 = loadSound('A5');
 
   WebMidi.enable(function (err) {
-    console.log(WebMidi.inputs);
-    console.log(WebMidi.outputs);
+    console.log(WebMidi.inputs[0]);
+    //console.log(WebMidi.outputs);
   });
 
   //var input = WebMidi.getInputByName("Axiom Pro 25 USB A In");
