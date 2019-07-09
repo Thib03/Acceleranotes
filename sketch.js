@@ -837,8 +837,6 @@ function setup() {
   //text('ou',width/2,25.5*height/40);
 
   noLoop();
-
-  console.log("après");
 }
 
 function windowResized() {
@@ -871,6 +869,9 @@ function windowResized() {
 var fps, difficulty, limit;
 
 function draw() {
+
+console.log("hey");
+
   fps = frameRate();
   if (fps > 10) {
     difficulty = (Math.log(nbrn / 5 + 2) + 0.5);
