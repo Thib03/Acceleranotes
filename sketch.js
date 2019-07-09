@@ -768,7 +768,9 @@ function preload()
   //var input = WebMidi.getInputByName("Axiom Pro 25 USB A In");
   var input = WebMidi.inputs[0];
 
-  input.addListener('pitchbend', "all", function(e) {
+  console.log("c'est la bonne");
+  
+  input.addListener('noteon', "all", function(e) {
     console.log("Pitch value: " + e.value);
   });
 }
