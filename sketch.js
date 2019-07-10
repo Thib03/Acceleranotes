@@ -760,18 +760,18 @@ function preload()
 
   //A5 = loadSound('A5');
 
-  console.log("true");
-
-  WebMidi.enable(function (err) {
-    var input = WebMidi.inputs[0];
-
-    console.log(input);
-
-    input.addListener('noteon', "all", function(e) {
-      console.log("Pitch value: " + e.value);
-    });
-  },true);
+  console.log("yet");
 }
+
+WebMidi.enable(function (err) {
+  var input = WebMidi.inputs[0];
+
+  console.log(input);
+
+  input.addListener('noteon', "all", function(e) {
+    console.log("Pitch value: " + e.value);
+  });
+},true);
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
