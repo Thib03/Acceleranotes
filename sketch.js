@@ -760,22 +760,20 @@ function preload()
 
   //A5 = loadSound('A5');
 
+  console.log("oui");
+
   WebMidi.enable(function (err) {
-    console.log(WebMidi.inputs[0]);
-    //console.log(WebMidi.outputs);
+    var input = WebMidi.inputs[0];
+
+    console.log(input);
+
+    input.addListener('noteon', "all", function(e) {
+      console.log("Pitch value: " + e.value);
+    });
   });
-
-  //var input = WebMidi.getInputByName("Axiom Pro 25 USB A In");
-  var input = WebMidi.inputs[0];
-
-  console.log("that's the one");
 }
 
 function setup() {
-  input.addListener('noteon', "all", function(e) {
-    console.log("Pitch value: " + e.value);
-  });
-
   createCanvas(windowWidth, windowHeight);
   //createCanvas(400,400);
 
