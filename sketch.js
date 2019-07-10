@@ -760,7 +760,7 @@ function preload()
 
   //A5 = loadSound('A5');
 
-  console.log("2.0.2");
+  console.log("true");
 
   WebMidi.enable(function (err) {
     var input = WebMidi.inputs[0];
