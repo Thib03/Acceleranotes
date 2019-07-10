@@ -759,6 +759,18 @@ function preload()
   //soundFormats('mp3');
 
   //A5 = loadSound('A5');
+
+  WebMidi.enable(function (err) {
+    var input = WebMidi.inputs[0];
+
+    console.log(input);
+
+    input.addListener('noteon', "all", function(e) {
+      console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
+    });
+  },true);
+
+  console.log("hope");
 }
 
 function setup() {
@@ -824,18 +836,6 @@ function setup() {
   //text('ou',width/2,25.5*height/40);
 
   noLoop();
-
-  WebMidi.enable(function (err) {
-    var input = WebMidi.inputs[0];
-
-    console.log(input);
-
-    input.addListener('noteon', "all", function(e) {
-      console.log("Pitch value: " + e.value);
-    });
-  },true);
-
-  console.log("now");
 }
 
 function windowResized() {
