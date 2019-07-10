@@ -770,7 +770,7 @@ function preload()
     input.addListener('noteon', "all", function(e) {
       console.log("Pitch value: " + e.value);
     });
-  });
+  },true);
 }
 
 function setup() {
