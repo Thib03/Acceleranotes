@@ -761,12 +761,15 @@ function preload()
   //A5 = loadSound('A5');
 
   WebMidi.enable(function (err) {
+    if (err) console.log("An error occurred", err);
+
     var input = WebMidi.inputs[0];
 
     console.log(input);
 
     input.addListener('noteon', "all", function(e) {
-      console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
+      if (e) console.log("An error occurred", e);
+      else console.log("noteon", e);
     });
   },true);
 
