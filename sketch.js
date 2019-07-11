@@ -1,3 +1,18 @@
+WebMidi.enable(function (err) {
+  if (err) console.log("An error occurred", err);
+
+  var input = WebMidi.inputs[0];
+
+  console.log(input);
+
+  input.addListener('noteon', "all", function(e) {
+    if (e) console.log("An error occurred", e);
+    else console.log("noteon", e);
+  });
+},true);
+
+console.log("last one");
+
 var clefSol;
 var clefFa;
 var clefUt;
@@ -824,21 +839,6 @@ function setup() {
   //text('ou',width/2,25.5*height/40);
 
   noLoop();
-
-  WebMidi.enable(function (err) {
-    if (err) console.log("An error occurred", err);
-
-    var input = WebMidi.inputs[0];
-
-    console.log(input);
-
-    input.addListener('noteon', "all", function(e) {
-      if (e) console.log("An error occurred", e);
-      else console.log("noteon", e);
-    });
-  },true);
-
-  console.log("new hope");
 }
 
 function windowResized() {
