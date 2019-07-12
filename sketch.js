@@ -767,7 +767,7 @@ function preload()
   //{
   //  pseudoOk = true;
   //}
-
+  
   WebMidi.enable(function (err) {
     if (err) console.log("An error occurred", err);
 
