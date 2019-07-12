@@ -767,7 +767,7 @@ function preload()
   //{
   //  pseudoOk = true;
   //}
-  
+
   WebMidi.enable(function (err) {
     if (err) console.log("An error occurred", err);
 
@@ -779,6 +779,9 @@ function preload()
     console.log(liste);
 
     var input = window.prompt(liste);
+    achois.extract();
+
+
 
     WebMidi.inputs[0].addListener('noteon', 'all', function(e) {
       var pitch = e.note.number;
