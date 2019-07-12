@@ -778,12 +778,9 @@ function preload()
 
     console.log(liste);
 
-    var input = window.prompt(liste);
-    achois.extract();
+    var input = window.prompt("Copie/colle le nom de l'appareil désiré :\n"+liste);
 
-
-
-    WebMidi.inputs[0].addListener('noteon', 'all', function(e) {
+    WebMidi.getInputByName(input).addListener('noteon', 'all', function(e) {
       var pitch = e.note.number;
       var octave = e.note.octave;
       var pitchClass = pitch%12;
@@ -802,6 +799,7 @@ function preload()
         case 10:
         case 11: degree = 7; break;
       }
+      console.log(degree);
     });
   },true);
 
