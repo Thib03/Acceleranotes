@@ -745,11 +745,6 @@ function gotData(data)
   }
 }
 
-function noteEvent(e)
-{
-  console.log('yeaaaah');
-}
-
 function preload()
 {
   loadJSON(myUrl+'listscore&g=1',gotData);
@@ -764,10 +759,14 @@ function preload()
   WebMidi.enable(function (err) {
     if (err) console.log("An error occurred", err);
 
-    WebMidi.inputs[0].addListener('noteon', 'all', noteEvent(e));
+    WebMidi.inputs[0].addListener('noteon', 'all', function(e) {
+      console.log("noteon", e);
+    });
+
+    console.log("ok");
   },true);
 
-  console.log("it's the time");
+  console.log("it's done");
 }
 
 function setup() {
