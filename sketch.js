@@ -1,18 +1,3 @@
-WebMidi.enable(function (err) {
-  if (err) console.log("An error occurred", err);
-
-  var input = WebMidi.inputs[0];
-
-  console.log(input);
-
-  input.addListener('noteon', "all", function(e) {
-    if (e) console.log("An error occurred", e);
-    else console.log("noteon", e);
-  });
-},true);
-
-console.log("last one");
-
 var clefSol;
 var clefFa;
 var clefUt;
@@ -771,9 +756,17 @@ function preload()
   fontM = loadFont('medium.otf');
   fontL = loadFont('light.otf');
 
-  //soundFormats('mp3');
+  WebMidi.enable(function (err) {
+    if (err) console.log("An error occurred", err);
 
-  //A5 = loadSound('A5');
+    WebMidi.inputs[0].addListener('noteon', function(e) {
+      console.log("noteon", e);
+    });
+
+    console.log("ok");
+  },true);
+
+  console.log("it's done");
 }
 
 function setup() {
