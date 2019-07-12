@@ -756,11 +756,49 @@ function preload()
   fontM = loadFont('medium.otf');
   fontL = loadFont('light.otf');
 
+  //pseudo = window.prompt('Inscris ton nom :');
+
+  //if (pseudo == null ||
+  //    pseudo == '' ||
+  //    pseudo == 'null') {
+  //  pseudo = 'anonyme';
+  //}
+  //else
+  //{
+  //  pseudoOk = true;
+  //}
+
   WebMidi.enable(function (err) {
     if (err) console.log("An error occurred", err);
 
+    var liste = '';
+    for(let i = 0; i < WebMidi.inputs.length; i++) {
+      liste += WebMidi.inputs[i].name + '\n';
+    }
+
+    console.log(liste);
+
+    var input = window.prompt(liste);
+
     WebMidi.inputs[0].addListener('noteon', 'all', function(e) {
-      console.log("noteon : ", e.note.number);
+      var pitch = e.note.number;
+      var octave = e.note.octave;
+      var pitchClass = pitch%12;
+      var degree;
+      switch(pitchClass){
+        case 0: degree = 1; break;
+        case 1:
+        case 2: degree = 2; break;
+        case 3:
+        case 4: degree = 3; break;
+        case 5: degree = 4; break;
+        case 6:
+        case 7: degree = 5; break;
+        case 8:
+        case 9: degree = 6; break;
+        case 10:
+        case 11: degree = 7; break;
+      }
     });
   },true);
 
