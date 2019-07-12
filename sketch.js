@@ -778,7 +778,7 @@ function preload()
 
     console.log(liste);
 
-    var input = window.prompt("Copie/colle le nom de l'appareil désiré :\n"+liste);
+    var input = window.prompt("Écris le nom de l'appareil désiré :\n"+liste);
 
     WebMidi.getInputByName(input).addListener('noteon', 'all', function(e) {
       var pitch = e.note.number;
@@ -803,7 +803,7 @@ function preload()
     });
   },true);
 
-  console.log("it's done");
+  console.log("oui");
 }
 
 function setup() {
