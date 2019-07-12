@@ -760,10 +760,8 @@ function preload()
     if (err) console.log("An error occurred", err);
 
     WebMidi.inputs[0].addListener('noteon', 'all', function(e) {
-      console.log("noteon : ", e.number);
+      console.log("noteon : ", e.note.number);
     });
-
-    console.log("ok");
   },true);
 
   console.log("it's done");
