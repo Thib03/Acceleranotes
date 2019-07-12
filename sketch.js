@@ -759,7 +759,7 @@ function preload()
   WebMidi.enable(function (err) {
     if (err) console.log("An error occurred", err);
 
-    WebMidi.inputs[0].addListener('noteon', function(e) {
+    WebMidi.inputs[0].addListener('noteon', 'all', function(e) {
       console.log("noteon", e);
     });
 
