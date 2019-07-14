@@ -558,8 +558,7 @@ function adjustButtons() {
   }
 }
 
-function drawPseudoButton()
-{
+function drawPseudoButton() {
   noStroke();
   fill(255);
   rect(0, height / 2 - 6 * factor - 9 * pas + dy, width, 12 * factor + 9 * pas);
@@ -581,8 +580,7 @@ function drawPseudoButton()
   text('Inscris ton nom', width / 2, height / 2 - pas / 2 + decalage*dy);
 }
 
-function drawLostButtons()
-{
+function drawLostButtons() {
   noStroke();
   fill(255);
   rect(0, height / 2 - 6 * factor - 9 * pas + dy, width, 12 * factor + 9 * pas);
@@ -723,8 +721,7 @@ function restart() {
   loop();
 }
 
-function refresh()
-{
+function refresh() {
   noStroke();
   fill(255);
   rect(0,0,width,height);
@@ -763,8 +760,7 @@ var myUrl = 'https://www.cmne.ch/index.php?id=321&type=101&act=';
 
 var response;
 
-function gotData(data)
-{
+function gotData(data) {
   if(data != null)
   {
     highscore = data['0'].score;
@@ -1379,7 +1375,15 @@ function handleMidiEvent(e) {
     default: degree = 0; break;
   }
   if(degree)
-    console.log(degree);
+    var pitch;
+    switch(clef) {
+      case 0: pitch = degree-6+7*(octave-3);
+      case 1: pitch = degree-7+7*(octave-2);
+      case 2: pitch = degree-1+7*(octave-2);
+    }
+
+    if(pitch >= 0 && pitch < 17)
+      console.log(degree);
   //else
     //console.log("nope");
 }
