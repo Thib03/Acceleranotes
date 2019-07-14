@@ -331,23 +331,20 @@ function drawMidiButton() {
   let y = height / 15;
   let r = 2.2 * factor;
 
-  if(midi) {
-    strokeWeight(factor / 4.6);
-    stroke(noir);
-  }
-
-  circle(x, y, r);
-
   noStroke();
+  circle(x, y, r);
 
   imageMode(CENTER);
   image(clavierMidi,x, y, 4*factor, 4*factor);
 
-    /*noStroke();
-    fill(noir);
-    textAlign(CENTER, CENTER);
-    textSize(3.8 * factor);
-    text('!', x, y - 0.5 * factor);*/
+  if(midi) {
+    strokeWeight(factor / 4.6);
+    stroke(noir);
+    noFill();
+    rectMode(CENTER);
+    rect(x,y,2.3*factor,3.1*factor,factor/5)
+    rectMode(CORNER);
+  }
 }
 
 
