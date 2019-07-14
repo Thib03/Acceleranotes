@@ -344,6 +344,7 @@ function drawMidiButton() {
     rectMode(CENTER);
     rect(x,y,2.4*factor,3.2*factor)
     rectMode(CORNER);
+    noStroke();
   }
 }
 
