@@ -1140,7 +1140,7 @@ function mousePressed() {
 
           while((num < 1 || num >= WebMidi.inputs.length) && i < 3) {
             numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
-            if(numStr != ' ' && numStr != null) num = parseInt(numStr);
+            if(numStr != null && numStr) num = parseInt(numStr);
             i++;
           }
 
