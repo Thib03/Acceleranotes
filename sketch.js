@@ -341,9 +341,15 @@ function drawMidiButton() {
   textSize(3.8 * factor);
   text(help ? '' : '?', x, y - 0.5 * factor);*/
 
-  imageMode(CENTER);
+  /*imageMode(CENTER);
   image(clavierMidi,x, y + factor / 6,
-    2, 2);
+    2, 2);*/
+
+    noStroke();
+    fill(noir);
+    textAlign(CENTER, CENTER);
+    textSize(3.8 * factor);
+    text('!', x, y - 0.5 * factor);
 }
 
 
@@ -1130,7 +1136,7 @@ function mousePressed() {
 
           for(let i = 0; i < WebMidi.inputs.length; i++) {
             num = i+1;
-            liste += num.toString() + ' ' + WebMidi.inputs[i].name + '\n';
+            liste += num.toString() + ' - ' + WebMidi.inputs[i].name + '\n';
           }
 
           //console.log(liste);
