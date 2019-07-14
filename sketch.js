@@ -1352,7 +1352,7 @@ function enableMidi() {
     else {
       var input = WebMidi.inputs[num-1];
       console.log('input : ',input.name);
-      if(!input.hasListener('noteon', handleMidiEvent)) {
+      if(!input.hasListener('noteon', 'all', handleMidiEvent)) {
         input.addListener('noteon', 'all', handleMidiEvent);
       }
     }
