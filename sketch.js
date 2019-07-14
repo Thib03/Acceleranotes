@@ -1144,7 +1144,7 @@ function mousePressed() {
           i = 0;
           num = 0;
 
-          while((num < 1 || num >= WebMidi.inputs.length) && i < 3) {
+          while((num < 1 || num > WebMidi.inputs.length) && i < 3) {
             numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
             if(numStr != null && numStr) num = parseInt(numStr);
             i++;
