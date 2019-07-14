@@ -776,11 +776,13 @@ function preload()
       liste += WebMidi.inputs[i].name + '\n';
     }
 
-    console.log(liste);
+    //console.log(liste);
 
     var input = window.prompt("Écris le nom de l'appareil désiré :\n"+liste);
 
     WebMidi.getInputByName(input).addListener('noteon', 'all', function(e) {
+      console.log("input: "+input)
+
       var pitch = e.note.number;
       var octave = e.note.octave;
       var pitchClass = pitch%12;
@@ -807,7 +809,7 @@ function preload()
     });
   },true);
 
-  console.log("oui");
+  //console.log("oui");
 }
 
 function setup() {
