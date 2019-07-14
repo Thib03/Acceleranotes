@@ -2,6 +2,10 @@ var clefSol;
 var clefFa;
 var clefUt;
 
+var clavierMidi;
+
+var midi = true;
+
 var A5;
 
 //var buttonColours = generateColours(7);
@@ -230,7 +234,7 @@ function drawHelpButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width / 2;
+  let x = width*(1/2-1/10);
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -317,6 +321,30 @@ function drawHelp() {
     text(buttons4[d], x, y);
   }
 }
+
+function drawMidiButton() {
+  noStroke();
+  //fill(225);
+  fill(colButtons);
+  let x = width*(1/2+1/10);
+  let y = height / 15;
+  let r = 2.2 * factor;
+
+  if(midi) strokeWeight(factor / 4.6);
+
+  circle(x, y, r);
+
+  /*noStroke();
+  fill(noir);
+  textAlign(CENTER, CENTER);
+  textSize(3.8 * factor);
+  text(help ? '' : '?', x, y - 0.5 * factor);*/
+
+  imageMode(CENTER);
+  image(clavierMidi,x, y + factor / 6,
+    2 * factor, 2 * factor);
+}
+
 
 function drawClefs() {
 
@@ -753,6 +781,8 @@ function preload()
   clefFa = loadImage('clef_fa.png');
   clefUt = loadImage('clef_ut.png');
 
+  clavierMidi = loadImage('clavier_midi.png');
+
   fontM = loadFont('medium.otf');
   fontL = loadFont('light.otf');
 
@@ -780,9 +810,9 @@ function preload()
 
     var input = window.prompt("Écris le nom de l'appareil désiré :\n"+liste);
 
-    WebMidi.getInputByName(input).addListener('noteon', 'all', function(e) {
-      console.log("input: "+input)
+    console.log("input : "+input)
 
+    WebMidi.getInputByName(input).addListener('noteon', 'all', function(e) {
       var pitch = e.note.number;
       var octave = e.note.octave;
       var pitchClass = pitch%12;
