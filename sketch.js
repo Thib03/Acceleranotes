@@ -1129,10 +1129,11 @@ function mousePressed() {
           if (err) console.log("An error occurred", err);
 
           var liste = '';
+          var taille = WebMidi.inputs.length;
           var i, num;
           var numStr = '0';
 
-          for(let i = 0; i < WebMidi.inputs.length; i++) {
+          for(let i = 0; i < taille; i++) {
             num = i+1;
             liste += num.toString() + ' - ' + WebMidi.inputs[i].name + '\n';
           }
@@ -1142,13 +1143,13 @@ function mousePressed() {
           i = 0;
           num = 0;
 
-          while((num < 1 || num > WebMidi.inputs.length) && i < 3) {
+          while((num < 1 || num > taille) && i < 3) {
             numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
             if(numStr != null && numStr) num = parseInt(numStr);
             i++;
           }
 
-          if(num == 0 || i == 3) midi = false;
+          if(num < 0 || !num || num > taille) midi = false;
           else {
             var input = WebMidi.inputs[num-1];
             console.log('input : ',input.name);
