@@ -341,7 +341,7 @@ function drawMidiButton() {
   noStroke();
 
   imageMode(CENTER);
-  image(clavierMidi,x, y, 100, 100);
+  image(clavierMidi,x, y, 100*factor, 100*factor);
 
     /*noStroke();
     fill(noir);
