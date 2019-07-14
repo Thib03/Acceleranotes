@@ -1114,76 +1114,9 @@ function mousePressed() {
 
     if (dist <= r) {
       if (midi) {
-        midi = false;
-
-        WebMidi.disable();
-
-        refresh();
+        disableMidi();
       } else {
-        midi = true;
-
-        WebMidi.enable(function (err) {
-          if (err) console.log("An error occurred", err);
-
-          var liste = '';
-          var taille = WebMidi.inputs.length;
-          var i, num;
-          var numStr = '0';
-
-          for(let i = 0; i < taille; i++) {
-            num = i+1;
-            liste += num.toString() + ' - ' + WebMidi.inputs[i].name + '\n';
-          }
-
-          //console.log(liste);
-
-          i = 0;
-          num = 0;
-
-          while((num < 1 || num > taille) && i < 3) {
-            numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
-            if(numStr != null && numStr) num = parseInt(numStr);
-            i++;
-          }
-
-          if(num < 0 || !num || num > taille) {
-            midi = false;
-
-            WebMidi.disable();
-
-            refresh();
-          }
-          else {
-            var input = WebMidi.inputs[num-1];
-            console.log('input : ',input.name);
-            input.addListener('noteon', 'all', function(e) {
-              var pitch = e.note.number;
-              var octave = e.note.octave;
-              var pitchClass = pitch%12;
-              var degree;
-              switch(pitchClass){
-                case 0: degree = 1; break;
-                //case 1:
-                case 2: degree = 2; break;
-                //case 3:
-                case 4: degree = 3; break;
-                case 5: degree = 4; break;
-                //case 6:
-                case 7: degree = 5; break;
-                //case 8:
-                case 9: degree = 6; break;
-                //case 10:
-                case 11: degree = 7; break;
-                default: degree = 0; break;
-              }
-              if(degree)
-                console.log(degree);
-              else
-                console.log("nope");
-            });
-          }
-        },true);
-
+        enableMidi();
         refresh();
       }
     }
@@ -1383,4 +1316,78 @@ function keyReleased() {
     refresh();
   }
   A5.play();
+}
+
+function enableMidi() {
+  midi = true;
+
+  WebMidi.enable(function (err) {
+    if (err) console.log("An error occurred", err);
+
+    var liste = '';
+    var taille = WebMidi.inputs.length;
+    var i, num;
+    var numStr = '0';
+
+    for(let i = 0; i < taille; i++) {
+      num = i+1;
+      liste += num.toString() + ' - ' + WebMidi.inputs[i].name + '\n';
+    }
+
+    //console.log(liste);
+
+    i = 0;
+    num = 0;
+
+    while((num < 1 || num > taille) && i < 3) {
+      numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
+      if(numStr != null && numStr) num = parseInt(numStr);
+      i++;
+    }
+
+    if(num < 0 || !num || num > taille) {
+      disableMidi();
+    }
+    else {
+      var input = WebMidi.inputs[num-1];
+      console.log('input : ',input.name);
+      if(!input.hasListener('noteon', handleMidiEvent)) {
+        input.addListener('noteon', 'all', handleMidiEvent);
+      }
+    }
+  },true);
+}
+
+function handleMidiEvent(e) {
+  var pitch = e.note.number;
+  var octave = e.note.octave;
+  var pitchClass = pitch%12;
+  var degree;
+  switch(pitchClass){
+    case 0: degree = 1; break;
+    //case 1:
+    case 2: degree = 2; break;
+    //case 3:
+    case 4: degree = 3; break;
+    case 5: degree = 4; break;
+    //case 6:
+    case 7: degree = 5; break;
+    //case 8:
+    case 9: degree = 6; break;
+    //case 10:
+    case 11: degree = 7; break;
+    default: degree = 0; break;
+  }
+  if(degree)
+    console.log(degree);
+  //else
+    //console.log("nope");
+}
+
+function disableMidi() {
+  midi = false;
+
+  WebMidi.disable();
+
+  refresh();
 }
