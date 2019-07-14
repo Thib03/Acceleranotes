@@ -1149,7 +1149,13 @@ function mousePressed() {
             i++;
           }
 
-          if(num < 0 || !num || num > taille) midi = false;
+          if(num < 0 || !num || num > taille) {
+            midi = false;
+
+            WebMidi.disable();
+
+            refresh();
+          }
           else {
             var input = WebMidi.inputs[num-1];
             console.log('input : ',input.name);
