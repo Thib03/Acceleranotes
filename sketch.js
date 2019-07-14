@@ -1337,7 +1337,12 @@ function enableMidi() {
 
     while((num < 1 || num > taille) && i < 3) {
       numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
-      if(numStr != null && numStr) num = parseInt(numStr);
+      if(numStr == null)
+      {
+        num = 0;
+        break;
+      }
+      else if(numStr) num = parseInt(numStr);
       i++;
     }
 
