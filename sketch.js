@@ -4,7 +4,7 @@ var clefUt;
 
 var clavierMidi;
 
-var midi = true;
+var midi = false;
 
 var A5;
 
@@ -263,6 +263,7 @@ function drawHelp() {
   rect(0, 0, width, 0.48 * height);
 
   drawHelpButton();
+  drawMidiButton();
 
   let y = dy;
   dy = -0.31 * height;
@@ -652,6 +653,7 @@ function loose() {
   rect(0, 0, width, height / 3.6);
 
   drawHelpButton();
+  drawMidiButton();
 
   textAlign(CENTER, CENTER);
   fill(noir);
@@ -832,6 +834,7 @@ function setup() {
   textFont(fontL);
 
   drawHelpButton();
+  drawMidiButton();
 
   drawClefs();
 
@@ -1137,11 +1140,11 @@ function mousePressed() {
 
           while((num < 1 || num >= WebMidi.inputs.length) && i < 3) {
             numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
-            num = parseInt(numStr);
+            if(numStr != ' ' && numStr != null) num = parseInt(numStr);
             i++;
           }
 
-          if(i == 3) midi = false;
+          if(num == 0 || i == 3) midi = false;
           else {
             var input = WebMidi.inputs[num-1];
             console.log('input : ',input.name);
