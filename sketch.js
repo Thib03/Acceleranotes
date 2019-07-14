@@ -1379,7 +1379,7 @@ function handleMidiEvent(e) {
     case 11: degree = 7; break;
     default: degree = 0; break;
   }
-  if(degree)
+  if(degree) {
     var pitch;
     switch(clef) {
       case 0: pitch = degree-6+7*(octave-3); break;
@@ -1389,8 +1389,7 @@ function handleMidiEvent(e) {
 
     if(pitch >= 0 && pitch < 17)
       console.log(pitch);
-  //else
-    //console.log("nope");
+  }
 }
 
 function disableMidi() {
