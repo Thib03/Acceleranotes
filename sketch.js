@@ -351,8 +351,9 @@ function drawMidiButton() {
 
 function drawClefs() {
 
+  noStroke();
+
   if (!help) {
-    noStroke();
     textAlign(CENTER, CENTER);
     fill(gris);
     textSize(2 * factor);
