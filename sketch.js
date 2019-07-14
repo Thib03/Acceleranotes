@@ -234,7 +234,7 @@ function drawHelpButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width*(1/2-1/10);
+  let x = width*(1/2-1/16);
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -327,7 +327,7 @@ function drawMidiButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width*(1/2+1/10);
+  let x = width*(1/2+1/16);
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -342,7 +342,7 @@ function drawMidiButton() {
     stroke(noir);
     noFill();
     rectMode(CENTER);
-    rect(x,y,2.3*factor,3.1*factor,factor/5)
+    rect(x,y,2.4*factor,3.2*factor)
     rectMode(CORNER);
   }
 }
@@ -1085,7 +1085,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width*(1/2-1/10);
+    let x = width*(1/2-1/16);
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1107,7 +1107,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width*(1/2+1/10);
+    let x = width*(1/2+1/16);
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1266,7 +1266,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width*(1/2-1/10);
+    let x = width*(1/2-1/16);
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1281,7 +1281,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width*(1/2+1/10);
+    let x = width*(1/2+1/16);
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
