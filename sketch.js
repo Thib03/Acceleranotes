@@ -787,19 +787,23 @@ function preload()
       var degree;
       switch(pitchClass){
         case 0: degree = 1; break;
-        case 1:
+        //case 1:
         case 2: degree = 2; break;
-        case 3:
+        //case 3:
         case 4: degree = 3; break;
         case 5: degree = 4; break;
-        case 6:
+        //case 6:
         case 7: degree = 5; break;
-        case 8:
+        //case 8:
         case 9: degree = 6; break;
-        case 10:
+        //case 10:
         case 11: degree = 7; break;
+        default: degree = 0; break;
       }
-      console.log(degree);
+      if(degree)
+        console.log(degree);
+      else
+        console.log("nope");
     });
   },true);
 
