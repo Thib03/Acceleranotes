@@ -1382,13 +1382,13 @@ function handleMidiEvent(e) {
   if(degree)
     var pitch;
     switch(clef) {
-      case 0: pitch = degree-6+7*(octave-3);
-      case 1: pitch = degree-7+7*(octave-2);
-      case 2: pitch = degree-1+7*(octave-2);
+      case 0: pitch = degree-6+7*(octave-3); break;
+      case 1: pitch = degree-7+7*(octave-2); break;
+      case 2: pitch = degree-1+7*(octave-2); break;
     }
 
     if(pitch >= 0 && pitch < 17)
-      console.log(degree);
+      console.log(pitch);
   //else
     //console.log("nope");
 }
