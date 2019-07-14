@@ -784,63 +784,6 @@ function preload() {
 
   fontM = loadFont('medium.otf');
   fontL = loadFont('light.otf');
-
-  WebMidi.enable(function (err) {
-    if (err) console.log("An error occurred", err);
-
-    var liste = '';
-    var i, num;
-    var numStr = '0';
-
-    for(let i = 0; i < WebMidi.inputs.length; i++) {
-      num = i+1;
-      liste += num.toString() + ' ' + WebMidi.inputs[i].name + '\n';
-    }
-
-    //console.log(liste);
-
-    i = 0;
-    num = 0;
-
-    while((num < 1 || num >= WebMidi.inputs.length) && i < 3) {
-      numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
-      num = parseInt(numStr);
-      i++;
-    }
-
-    if(i == 3) midi = false;
-    else {
-      var input = WebMidi.inputs[num-1];
-      console.log('input : ',input.name);
-      input.addListener('noteon', 'all', function(e) {
-        var pitch = e.note.number;
-        var octave = e.note.octave;
-        var pitchClass = pitch%12;
-        var degree;
-        switch(pitchClass){
-          case 0: degree = 1; break;
-          //case 1:
-          case 2: degree = 2; break;
-          //case 3:
-          case 4: degree = 3; break;
-          case 5: degree = 4; break;
-          //case 6:
-          case 7: degree = 5; break;
-          //case 8:
-          case 9: degree = 6; break;
-          //case 10:
-          case 11: degree = 7; break;
-          default: degree = 0; break;
-        }
-        if(degree)
-          console.log(degree);
-        else
-          console.log("nope");
-      });
-    },true);
-  }
-
-  //console.log("oui");
 }
 
 function setup() {
@@ -1138,7 +1081,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width / 2;
+    let x = width*(1/2-1/10);
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1154,6 +1097,82 @@ function mousePressed() {
       } else {
         help = true;
         //drawHelp();
+        refresh();
+      }
+    }
+  }
+
+  if (!hasBegun || hasLost || help) { // midi button
+    let x = width*(1/2+1/10);
+    let y = height / 15;
+    let r = 2.2 * factor;
+    let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
+
+    if (dist <= r) {
+      if (midi) {
+        midi = false;
+
+        WebMidi.disable();
+
+        refresh();
+      } else {
+        midi = true;
+
+        WebMidi.enable(function (err) {
+          if (err) console.log("An error occurred", err);
+
+          var liste = '';
+          var i, num;
+          var numStr = '0';
+
+          for(let i = 0; i < WebMidi.inputs.length; i++) {
+            num = i+1;
+            liste += num.toString() + ' ' + WebMidi.inputs[i].name + '\n';
+          }
+
+          //console.log(liste);
+
+          i = 0;
+          num = 0;
+
+          while((num < 1 || num >= WebMidi.inputs.length) && i < 3) {
+            numStr = window.prompt("Écris le numéro de l'appareil désiré :\n"+liste);
+            num = parseInt(numStr);
+            i++;
+          }
+
+          if(i == 3) midi = false;
+          else {
+            var input = WebMidi.inputs[num-1];
+            console.log('input : ',input.name);
+            input.addListener('noteon', 'all', function(e) {
+              var pitch = e.note.number;
+              var octave = e.note.octave;
+              var pitchClass = pitch%12;
+              var degree;
+              switch(pitchClass){
+                case 0: degree = 1; break;
+                //case 1:
+                case 2: degree = 2; break;
+                //case 3:
+                case 4: degree = 3; break;
+                case 5: degree = 4; break;
+                //case 6:
+                case 7: degree = 5; break;
+                //case 8:
+                case 9: degree = 6; break;
+                //case 10:
+                case 11: degree = 7; break;
+                default: degree = 0; break;
+              }
+              if(degree)
+                console.log(degree);
+              else
+                console.log("nope");
+            });
+          }
+        },true);
+
         refresh();
       }
     }
@@ -1236,7 +1255,22 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width / 2;
+    let x = width*(1/2-1/10);
+    let y = height / 15;
+    let r = 2.2 * factor;
+    let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
+
+    if (dist <= r) {
+      if (help) {
+        cursor(HAND);
+      } else {
+        cursor(HAND);
+      }
+    }
+  }
+
+  if (!hasBegun || hasLost || help) { // midi button
+    let x = width*(1/2+1/10);
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
