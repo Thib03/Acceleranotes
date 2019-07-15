@@ -342,7 +342,7 @@ function drawMidiButton() {
     stroke(noir);
     noFill();
     rectMode(CENTER);
-    rect(x,y,2.4*factor,3.2*factor)
+    rect(x,y,2.5*factor,2.6*factor)
     rectMode(CORNER);
     noStroke();
   }
@@ -1313,7 +1313,7 @@ function keyReleased() {
     button = -1;
     refresh();
   }
-  A5.play();
+  //A5.play();
 }
 
 function enableMidi() {
