@@ -1373,32 +1373,35 @@ function handleMidiEvent(e) {
   var pitchClass = pitch%12;
   var degree;
   switch(pitchClass){
-    case 0: degree = 1; break;
+    case 0: degree = 0; break;
     //case 1:
-    case 2: degree = 2; break;
+    case 2: degree = 1; break;
     //case 3:
-    case 4: degree = 3; break;
-    case 5: degree = 4; break;
+    case 4: degree = 2; break;
+    case 5: degree = 3; break;
     //case 6:
-    case 7: degree = 5; break;
+    case 7: degree = 4; break;
     //case 8:
-    case 9: degree = 6; break;
+    case 9: degree = 5; break;
     //case 10:
-    case 11: degree = 7; break;
-    default: degree = 0; break;
+    case 11: degree = 6; break;
+    default: degree = -1; break;
   }
 
-  if(degree) {
+  var deg = (notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
+
+  if(degree >= 0) {
     switch(clef) {
-      case 0: pitch = degree-6+7*(octave-3); break;
-      case 1: pitch = degree-7+7*(octave-2); break;
-      case 2: pitch = degree-1+7*(octave-2); break;
+      case 0: pitch = degree-5+7*(octave-3); break;
+      case 1: pitch = degree-6+7*(octave-2); break;
+      case 2: pitch = degree  +7*(octave-2); break;
     }
 
-    if(pitch >= 0 && pitch < 17) {
+    //if(pitch >= 0 && pitch < 17) {
       console.log('note : ',pitch);
-      if(pitch == notes[0].pitch)
+      if(pitch == notes[0].pitch) {
         button = deg;
+      }
       else
         button = (deg+1)%7;
 
@@ -1408,19 +1411,15 @@ function handleMidiEvent(e) {
         //drawHelp();
         refresh();
       } else {
-        notes[0].setColour(buttons[d].colour);
+        notes[0].setColour(buttons[degree].colour);
       }
-      return;
-    }
+    //}
   }
 
-  var deg = (notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
   if(deg == degree)
     lostMessage = 'Perdu ! Mauvaise octave...';
   else
     lostMessage = "Perdu ! C'était un ".concat(degres[deg],'...');
-  loose();
-  button = -1;
 }
 
 function disableMidi() {
