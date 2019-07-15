@@ -1410,6 +1410,7 @@ function handleMidiEvent(e) {
       } else {
         notes[0].setColour(buttons[d].colour);
       }
+      return;
     }
   }
 
