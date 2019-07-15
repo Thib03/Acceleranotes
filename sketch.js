@@ -625,7 +625,7 @@ function checkAnswer() {
     //vitesse = (Math.log(nbrn/10+2)+0.5)*60/frameRate();
     //vitesse = Math.log(nbrn/10+2)+0.5;
   } else if (button == -1) {} else {
-    lostMessage = "Perdu ! C'était un ".concat(degres[(notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7],
+    if(!midi) lostMessage = "Perdu ! C'était un ".concat(degres[(notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7],
       '...');
     loose();
     button = -1;
