@@ -1356,14 +1356,15 @@ function enableMidi() {
     else {
       var input = WebMidi.inputs[num-1];
       console.log('input : ',input.name);
-      if(!input.hasListener('noteon', 'all', handleMidiEvent)) {
-        input.addListener('noteon', 'all', handleMidiEvent);
+      if(!input.hasListener('noteon', 'all', handleNoteOn)) {
+        input.addListener('noteon', 'all', handleNoteOn);
+        input.addListener('noteoff', 'all', handleNoteOff);
       }
     }
   },true);
 }
 
-function handleMidiEvent(e) {
+function handleNoteOn(e) {
   if((!hasBegun || hasLost) && !help) return;
   if (button != -1 && !help) {
     checkAnswer();
@@ -1420,6 +1421,13 @@ function handleMidiEvent(e) {
     lostMessage = 'Perdu ! Mauvaise octave...';
   else
     lostMessage = "Perdu ! C'était un ".concat(degres[deg],'...');
+}
+
+function handleNoteOff(e) {
+  if (help && button != -1) {
+    button = -1;
+    refresh();
+  }
 }
 
 function disableMidi() {
