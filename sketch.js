@@ -1396,20 +1396,19 @@ function handleMidiEvent(e) {
     }
 
     if(pitch >= 0 && pitch < 17) {
-      console.log(pitch);
-      if(pitch == notes[0].pitch) {
+      console.log('note : ',pitch);
+      if(pitch == notes[0].pitch)
         button = deg;
-      }
-      else {
+      else
         button = (deg+1)%7;
-        adjustButtons();
-        time = millis();
-        if (help) {
-          //drawHelp();
-          refresh();
-        } else {
-          notes[0].setColour(buttons[d].colour);
-        }
+
+      adjustButtons();
+      time = millis();
+      if (help) {
+        //drawHelp();
+        refresh();
+      } else {
+        notes[0].setColour(buttons[d].colour);
       }
     }
   }
