@@ -743,6 +743,7 @@ function refresh() {
   } else {
     loose();
   }
+  cursor(ARROW);
 }
 
 function setMarge() {
@@ -1349,8 +1350,6 @@ function enableMidi() {
       i++;
     }
 
-    cursor(ARROW);
-
     if(num < 0 || !num || num > taille) {
       disableMidi();
     }
@@ -1388,6 +1387,7 @@ function handleMidiEvent(e) {
     case 11: degree = 7; break;
     default: degree = 0; break;
   }
+
   if(degree) {
     switch(clef) {
       case 0: pitch = degree-6+7*(octave-3); break;
