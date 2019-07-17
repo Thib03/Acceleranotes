@@ -234,7 +234,7 @@ function drawHelpButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width*(1/2-1/16);
+  let x = width/2-1.3*dy;
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -327,7 +327,7 @@ function drawMidiButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width*(1/2+1/16);
+  let x = width/2+1.3*dy;
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -1085,7 +1085,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width*(1/2-1/16);
+    let x =  width/2-1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1107,7 +1107,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width*(1/2+1/16);
+    let x = width/2+1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1199,7 +1199,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width*(1/2-1/16);
+    let x = width/2-1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1214,7 +1214,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width*(1/2+1/16);
+    let x = width/2+1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1398,7 +1398,12 @@ function handleNoteOn(e) {
       case 2: pitch = degree  +7*(octave-2); break;
     }
 
-    //if(pitch >= 0 && pitch < 17) {
+    if(help) {
+      button = deg;
+      refresh();
+      return;
+    }
+
       console.log('note : ',pitch);
       if(pitch == notes[0].pitch) {
         button = deg;
@@ -1408,13 +1413,8 @@ function handleNoteOn(e) {
 
       adjustButtons();
       time = millis();
-      if (help) {
-        //drawHelp();
-        refresh();
-      } else {
-        notes[0].setColour(buttons[degree].colour);
-      }
-    //}
+
+      notes[0].setColour(buttons[degree].colour);
   }
 
   if(deg == degree)
