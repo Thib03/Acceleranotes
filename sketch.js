@@ -1457,7 +1457,6 @@ var pitchMinStr;
 
 function handleNoteOn(e) {
   if(noteOnCounter < 2) {
-    noteOnCounter++;
     switch(noteOnCounter) {
       case 0: pitchMin = e.note.number;
               pitchMinStr = e.note.name+e.note.octave;
@@ -1465,6 +1464,7 @@ function handleNoteOn(e) {
       case 1: pitchMax = e.note.number;
               window.alert("Notes utilisées : "+pitchMinStr+" - "+e.note.name+e.note.octave);
     }
+    noteOnCounter++;
     return;
   }
   if((!hasBegun || hasLost) && !help) return;
