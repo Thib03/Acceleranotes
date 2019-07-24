@@ -20,6 +20,11 @@ var colButtons = '#ffffff';
 
 var clef = 0;
 
+var pitchMin = 0;
+var pitchMax = 0
+
+var middlePitch = 0;
+
 var marge = 10;
 var pas = 10;
 var factor;
@@ -64,7 +69,7 @@ class Note {
       this.pitch = p;
       this.x = x;
     } else {
-      this.pitch = floor(random(0, 17));
+      this.pitch = floor(random(pitchMin, pitchMax+1));
       this.x = width - 1.8 * marge;
     }
     this.adjustY();
@@ -72,7 +77,13 @@ class Note {
   }
 
   adjustY() {
-    this.y = height / 2 + (4 - this.pitch / 2) * marge + 1.6 * dy;
+    //this.y = height / 2 + (4 - this.pitch / 2) * marge + 1.6 * dy;
+    switch(clef) {
+      case 0: middlePitch = 34; break;//4*7+6;
+      case 1: middlePitch = 22; break;//3*7+1;
+      case 2: middlePitch = 28; break;//4*7;
+    }
+    this.y = height/2 + (middlePitch-this.pitch)*marge/2 + 1.6*dy;
   }
 
   setColour(c) {
@@ -80,6 +91,8 @@ class Note {
   }
 
   draw() {
+    console.log(this.pitch, middlePitch);
+
     noStroke();
     fill(this.colour);
 
@@ -91,15 +104,31 @@ class Note {
 
     stroke(this.colour);
 
-    if (this.pitch <= 8) {
+    var hauteur = this.pitch;
+
+    if (hauteur <= middlePitch) {
       line(this.x + 0.54 * marge, this.y - 0.1 * marge,
-        this.x + 0.54 * marge, this.y - 3 * marge);
+           this.x + 0.54 * marge, this.y - 3 * marge);
+      while(hauteur < middlePitch-4) {
+        if((middlePitch-hauteur)%2 == 0) {
+          line(this.x - 0.8 * marge, this.y - (hauteur-this.pitch)*marge/2,
+               this.x + 0.8 * marge, this.y - (hauteur-this.pitch)*marge/2);
+        }
+        hauteur++;
+      }
     } else {
       line(this.x - 0.54 * marge, this.y + 0.1 * marge,
-        this.x - 0.54 * marge, this.y + 3 * marge);
+           this.x - 0.54 * marge, this.y + 3 * marge);
+      while(hauteur > middlePitch+4) {
+        if((hauteur-middlePitch)%2 == 0) {
+          line(this.x - 0.8 * marge, this.y + (this.pitch-hauteur)*marge/2,
+               this.x + 0.8 * marge, this.y + (this.pitch-hauteur)*marge/2);
+        }
+        hauteur--;
+      }
     }
 
-    switch (this.pitch) {
+    /*switch (this.pitch) {
       case 0:
         line(this.x - 0.8 * marge, this.y - marge,
           this.x + 0.8 * marge, this.y - marge);
@@ -128,7 +157,7 @@ class Note {
         line(this.x - 0.8 * marge, this.y + marge,
           this.x + 0.8 * marge, this.y + marge);
         break;
-    }
+    }*/
   }
 
   move(v) {
@@ -234,7 +263,7 @@ function drawHelpButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width/2-1.3*dy;
+  let x = width/2+1.3*dy;
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -274,9 +303,18 @@ function drawHelp() {
 
   drawPortee();
 
+  var n0;
+
+  switch(clef) {
+    case 0: n0 = 7*3+5; break;
+    case 1: n0 = 7*2;   break;
+    case 2: n0 = 7*2+6; break;
+  }
+
   for (let n = 0; n < 17; n++) {
     let x = 7 * marge + n * (width - 12 * marge) / 16;
-    let note = new Note(n, x);
+    let note = new Note(n0+n, x);
+    //n = n-n0;
     let d = (n + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
 
     let y = note.getY();
@@ -327,7 +365,7 @@ function drawMidiButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width/2+1.3*dy;
+  let x = width/2-1.3*dy;
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -610,7 +648,13 @@ function drawLostButtons() {
 }
 
 function checkAnswer() {
-  let d = (notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
+  /*if(midi) {
+
+    return;
+  }*/
+
+  //let d = (notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
+  let d = notes[0].pitch%7;
 
   if (button == d && !hasLost) {
     notes.splice(0, 1);
@@ -625,8 +669,7 @@ function checkAnswer() {
     //vitesse = (Math.log(nbrn/10+2)+0.5)*60/frameRate();
     //vitesse = Math.log(nbrn/10+2)+0.5;
   } else if (button == -1) {} else {
-    if(!midi) lostMessage = "Perdu ! C'était un ".concat(degres[(notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7],
-      '...');
+    if(!midi) lostMessage = "Perdu ! C'était un ".concat(degres[d],'...');
     loose();
     button = -1;
     cursor(ARROW);
@@ -712,7 +755,7 @@ function restart() {
 
   adjustButtons();
 
-  notes = [new Note()];
+  //notes = [new Note()];
   nbrn = 0;
   vitesse = 1.2;
   newRecord = false;
@@ -802,7 +845,7 @@ function setup() {
 
   background(255);
 
-  notes = [new Note()];
+  //notes = [new Note()];
   nbrn = 0;
   vitesse = 1.2;
   newRecord = false;
@@ -996,6 +1039,26 @@ function mousePressed() {
         if (dist <= 4.2 * factor) {
           cursor(ARROW);
           clef = c;
+          if(!midi) {
+            switch(clef) {
+              case 0:
+                pitchMin = 7*3+5;
+                //middlePitch = 7*4+6;
+                pitchMax = 7*6;
+                break;
+              case 1:
+                pitchMin = 7*2;
+                //middlePitch = 7*3+1;
+                pitchMax = 7*4+2;
+                break;
+              case 2:
+                pitchMin = 7*2+6;
+                //middlePitch = 7*4;
+                pitchMax = 7*5+1;
+                break;
+            }
+          }
+          notes = [new Note()];
           factor *= 1.4;
           dy = ymem;
           //drawHelp();
@@ -1015,6 +1078,26 @@ function mousePressed() {
       if (dist <= 4.2 * factor) {
         cursor(ARROW);
         clef = c;
+        if(!midi) {
+          switch(clef) {
+            case 0:
+              pitchMin = 7*3+5;
+              //middlePitch = 7*4+6;
+              pitchMax = 7*6;
+              break;
+            case 1:
+              pitchMin = 7*2;
+              //middlePitch = 7*3+1;
+              pitchMax = 7*4+2;
+              break;
+            case 2:
+              pitchMin = 7*2+6;
+              //middlePitch = 7*4;
+              pitchMax = 7*5+1;
+              break;
+          }
+        }
+        notes = [new Note()];
         noStroke();
         fill(255);
         rect(0, 0, width, height);
@@ -1032,6 +1115,7 @@ function mousePressed() {
       let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
       if (dist <= 4.5 * factor) {
         cursor(ARROW);
+        notes = [new Note()];
         restart();
         //refresh();
       }
@@ -1085,7 +1169,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x =  width/2-1.3*dy;
+    let x =  width/2+1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1107,7 +1191,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width/2+1.3*dy;
+    let x = width/2-1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1199,7 +1283,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width/2-1.3*dy;
+    let x = width/2+1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1214,7 +1298,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width/2+1.3*dy;
+    let x = width/2-1.3*dy;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1392,11 +1476,13 @@ function handleNoteOn(e) {
   var deg = (notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
 
   if(degree >= 0) {
-    switch(clef) {
+    /*switch(clef) {
       case 0: pitch = degree-5+7*(octave-3); break;
       case 1: pitch = degree-6+7*(octave-2); break;
       case 2: pitch = degree  +7*(octave-2); break;
-    }
+    }*/
+
+    pitch = 7*octave+degree;
 
     if(help) {
       button = deg;
