@@ -980,20 +980,20 @@ function draw() {
       notes[n].move(vitesse);
       notes[n].draw();
     }
-  }
 
-  if (notes[notes.length - 1].position() < 5 * marge + 8.5 * (width - 7 * marge) / 10) {
-    notes.push(new Note());
-  }
+    if (notes[notes.length - 1].position() < 5 * marge + 8.5 * (width - 7 * marge) / 10) {
+      notes.push(new Note());
+    }
 
-  if (notes[0].position() < 5 * marge) { // a atteint la clef
-    //notes.splice(0,1);
-    if (button != -1) {
-      checkAnswer();
-    } else if (!hasLost){
-      lostMessage = '';
-      loose();
-      time = millis();
+    if (notes[0].position() < 5 * marge) { // a atteint la clef
+      //notes.splice(0,1);
+      if (button != -1) {
+        checkAnswer();
+      } else if (!hasLost){
+        lostMessage = '';
+        loose();
+        time = millis();
+      }
     }
   }
 
@@ -1471,7 +1471,7 @@ function handleNoteOn(e) {
   if (button != -1 && !help) {
     checkAnswer();
   }
-  
+
   var pitch = e.note.number;
   var octave = e.note.octave;
   var pitchClass = pitch%12;
