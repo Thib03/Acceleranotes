@@ -1473,7 +1473,7 @@ function handleNoteOn(e) {
     default: degree = -1; break;
   }
 
-  var deg = (notes[0].pitch + (clef == 0 ? 5 : (clef == 1 ? 7 : 6))) % 7;
+  var deg = notes[0].pitch%7;
 
   if(degree >= 0) {
     /*switch(clef) {
