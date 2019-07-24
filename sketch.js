@@ -1402,6 +1402,8 @@ function keyReleased() {
   //A5.play();
 }
 
+var noteOnCounter;
+
 function enableMidi() {
   midi = true;
 
@@ -1444,11 +1446,27 @@ function enableMidi() {
         input.addListener('noteon', 'all', handleNoteOn);
         input.addListener('noteoff', 'all', handleNoteOff);
       }
+
+      noteOnCounter = 0;
+      window.alert("Joue la note la plus basse sur ton instrument MIDI, puis la note la plus aigüe.");
     }
   },true);
 }
 
+var pitchMinStr;
+
 function handleNoteOn(e) {
+  if(noteOnCounter < 2) {
+    noteOnCounter++;
+    switch(noteOneCounter) {
+      case 0: pitchMin = e.note.number;
+              pitchMinStr = e.note.name+e.note.octave;
+              break;
+      case 1: pitchMax = e.note.number;
+              window.alert("Notes utilisées : "+pitchMinStr+" - "+e.note.name+e.note.octave);
+    }
+    return;
+  }
   if((!hasBegun || hasLost) && !help) return;
   if (button != -1 && !help) {
     checkAnswer();
