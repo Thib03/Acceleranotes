@@ -1479,8 +1479,11 @@ function handleNoteOn(e) {
     refresh();
     return;
   }
-  else {
+  else if(hasBegun && !hasLost) {
     deg = notes[0].pitch%7;
+  }
+  else {
+    return;
   }
 
   //if(degree >= 0) {
