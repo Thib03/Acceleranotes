@@ -1470,12 +1470,20 @@ function handleNoteOn(e) {
     case 9: degree = 5; break;
     //case 10:
     case 11: degree = 6; break;
-    default: degree = -1; break;
+    default: return;
   }
 
-  var deg = notes[0].pitch%7;
+  var deg;
+  if(help) {
+    button = degree;
+    refresh();
+    return;
+  }
+  else {
+    deg = notes[0].pitch%7;
+  }
 
-  if(degree >= 0) {
+  //if(degree >= 0) {
     /*switch(clef) {
       case 0: pitch = degree-5+7*(octave-3); break;
       case 1: pitch = degree-6+7*(octave-2); break;
@@ -1483,12 +1491,6 @@ function handleNoteOn(e) {
     }*/
 
     pitch = 7*octave+degree;
-
-    if(help) {
-      button = deg;
-      refresh();
-      return;
-    }
 
       console.log('note : ',pitch);
       if(pitch == notes[0].pitch) {
@@ -1501,7 +1503,7 @@ function handleNoteOn(e) {
       time = millis();
 
       notes[0].setColour(buttons[degree].colour);
-  }
+  //}
 
   if(deg == degree)
     lostMessage = 'Perdu ! Mauvaise octave...';
