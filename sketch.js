@@ -1471,6 +1471,7 @@ function handleNoteOn(e) {
   if (button != -1 && !help) {
     checkAnswer();
   }
+  
   var pitch = e.note.number;
   var octave = e.note.octave;
   var pitchClass = pitch%12;
