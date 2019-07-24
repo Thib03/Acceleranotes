@@ -1458,7 +1458,7 @@ var pitchMinStr;
 function handleNoteOn(e) {
   if(noteOnCounter < 2) {
     noteOnCounter++;
-    switch(noteOneCounter) {
+    switch(noteOnCounter) {
       case 0: pitchMin = e.note.number;
               pitchMinStr = e.note.name+e.note.octave;
               break;
