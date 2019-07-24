@@ -1456,18 +1456,7 @@ function enableMidi() {
 var pitchMinStr;
 
 function handleNoteOn(e) {
-  if(noteOnCounter < 2) {
-    switch(noteOnCounter) {
-      case 0: pitchMin = e.note.number;
-              pitchMinStr = e.note.name+e.note.octave;
-              break;
-      case 1: pitchMax = e.note.number;
-              window.alert("Notes utilisées : "+pitchMinStr+" - "+e.note.name+e.note.octave);
-    }
-    noteOnCounter++;
-    return;
-  }
-  if((!hasBegun || hasLost) && !help) return;
+  if((!hasBegun || hasLost) && !help && noteOnCounter >= 2) return;
   if (button != -1 && !help) {
     checkAnswer();
   }
@@ -1492,6 +1481,20 @@ function handleNoteOn(e) {
     default: return;
   }
 
+  pitch = 7*octave+degree;
+
+  if(noteOnCounter < 2) {
+    switch(noteOnCounter) {
+      case 0: pitchMin = pitch;
+              pitchMinStr = e.note.name+octave;
+              break;
+      case 1: pitchMax = pitch;
+              window.alert("Notes utilisées : "+pitchMinStr+" - "+e.note.name+octave);
+    }
+    noteOnCounter++;
+    return;
+  }
+
   var deg;
   if(help) {
     button = degree;
@@ -1511,8 +1514,6 @@ function handleNoteOn(e) {
       case 1: pitch = degree-6+7*(octave-2); break;
       case 2: pitch = degree  +7*(octave-2); break;
     }*/
-
-    pitch = 7*octave+degree;
 
       console.log('note : ',pitch);
       if(pitch == notes[0].pitch) {
