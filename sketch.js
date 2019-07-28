@@ -112,7 +112,7 @@ class Note {
   }
 
   draw() {
-    console.log(this.pitch, middlePitch);
+    //console.log(this.pitch, middlePitch);
 
     noStroke();
     fill(this.colour);
@@ -1509,7 +1509,7 @@ function handleNoteOn(e) {
   pitch = 7*octave+degree;
 
   if(noteOnCounter < 2) {
-    console.log("noteOnCounter : "+noteOnCounter);
+    //console.log("noteOnCounter : "+noteOnCounter);
     switch(noteOnCounter) {
       case 0: pitchMin = pitch;
               pitchMinStr = e.note.name+octave;
