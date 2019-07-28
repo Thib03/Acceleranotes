@@ -71,7 +71,25 @@ class Note {
       this.pitch = p;
       this.x = x;
     } else {
-      this.pitch = floor(random(pitchMin, pitchMax+1));
+      var n0, n1;
+
+      if(pitchMin > pitchBorder[clef][0] &&
+         pitchMin < pitchBorder[clef][2]) {
+        n0 = pitchMin;
+      }
+      else {
+        n0 = pitchBorder[clef][0];
+      }
+
+      if(pitchMax > pitchBorder[clef][0] &&
+         pitchMax < pitchBorder[clef][2]) {
+        n1 = pitchMax;
+      }
+      else {
+        n1 = pitchBorder[clef][2];
+      }
+
+      this.pitch = floor(random(n0,n1+1));
       this.x = width - 1.8 * marge;
     }
     this.adjustY();
