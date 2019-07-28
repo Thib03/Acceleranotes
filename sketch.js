@@ -263,7 +263,7 @@ function drawHelpButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width/2+1.3*dy;
+  let x = width/2-5*factor;
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -365,7 +365,7 @@ function drawMidiButton() {
   noStroke();
   //fill(225);
   fill(colButtons);
-  let x = width/2-1.3*dy;
+  let x = width/2+5*factor;
   let y = height / 15;
   let r = 2.2 * factor;
 
@@ -1169,7 +1169,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x =  width/2+1.3*dy;
+    let x =  width/2-5*factor;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1191,7 +1191,7 @@ function mousePressed() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width/2-1.3*dy;
+    let x = width/2+5*factor;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1283,7 +1283,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // help button
-    let x = width/2+1.3*dy;
+    let x = width/2-5*factor;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1298,7 +1298,7 @@ function mouseMoved() {
   }
 
   if (!hasBegun || hasLost || help) { // midi button
-    let x = width/2-1.3*dy;
+    let x = width/2+5*factor;
     let y = height / 15;
     let r = 2.2 * factor;
     let dist = sqrt(pow(x - mouseX, 2) + pow(y - mouseY, 2));
@@ -1440,14 +1440,13 @@ function enableMidi() {
       disableMidi();
     }
     else {
+      noteOnCounter = 0;
       var input = WebMidi.inputs[num-1];
       console.log('input : ',input.name);
       if(!input.hasListener('noteon', 'all', handleNoteOn)) {
         input.addListener('noteon', 'all', handleNoteOn);
         input.addListener('noteoff', 'all', handleNoteOff);
       }
-
-      noteOnCounter = 0;
       window.alert("Joue la note la plus basse sur ton instrument MIDI, puis la note la plus aigüe.");
     }
   },true);
@@ -1484,6 +1483,7 @@ function handleNoteOn(e) {
   pitch = 7*octave+degree;
 
   if(noteOnCounter < 2) {
+    console.log("noteOnCounter : "+noteOnCounter);
     switch(noteOnCounter) {
       case 0: pitchMin = pitch;
               pitchMinStr = e.note.name+octave;
