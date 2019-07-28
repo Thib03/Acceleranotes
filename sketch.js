@@ -25,6 +25,8 @@ var pitchMax = 0
 
 var middlePitch = 0;
 
+var pitchBorder = [[26,34,42],[14,22,30],[20,28,36]];
+
 var marge = 10;
 var pas = 10;
 var factor;
@@ -78,11 +80,12 @@ class Note {
 
   adjustY() {
     //this.y = height / 2 + (4 - this.pitch / 2) * marge + 1.6 * dy;
-    switch(clef) {
+    /*switch(clef) {
       case 0: middlePitch = 34; break;//4*7+6;
       case 1: middlePitch = 22; break;//3*7+1;
       case 2: middlePitch = 28; break;//4*7;
-    }
+    }*/
+    middlePitch = pitchBorder[clef][1];
     this.y = height/2 + (middlePitch-this.pitch)*marge/2 + 1.6*dy;
   }
 
@@ -305,11 +308,12 @@ function drawHelp() {
 
   var n0;
 
-  switch(clef) {
+  /*switch(clef) {
     case 0: n0 = 7*3+5; break;
     case 1: n0 = 7*2;   break;
     case 2: n0 = 7*2+6; break;
-  }
+  }*/
+  n0 = pitchBorder[clef][0];
 
   for (let n = 0; n < 17; n++) {
     let x = 7 * marge + n * (width - 12 * marge) / 16;
@@ -1040,7 +1044,7 @@ function mousePressed() {
           cursor(ARROW);
           clef = c;
           if(!midi) {
-            switch(clef) {
+            /*switch(clef) {
               case 0:
                 pitchMin = 7*3+5;
                 //middlePitch = 7*4+6;
@@ -1056,7 +1060,9 @@ function mousePressed() {
                 //middlePitch = 7*4;
                 pitchMax = 7*5+1;
                 break;
-            }
+            }*/
+            pitchMin = pitchBorder[clef][0];
+            pitchMax = pitchBorder[clef][2];
           }
           notes = [new Note()];
           factor *= 1.4;
@@ -1079,7 +1085,7 @@ function mousePressed() {
         cursor(ARROW);
         clef = c;
         if(!midi) {
-          switch(clef) {
+          /*switch(clef) {
             case 0:
               pitchMin = 7*3+5;
               //middlePitch = 7*4+6;
@@ -1095,7 +1101,9 @@ function mousePressed() {
               //middlePitch = 7*4;
               pitchMax = 7*5+1;
               break;
-          }
+          }*/
+          pitchMin = pitchBorder[clef][0];
+          pitchMax = pitchBorder[clef][2];
         }
         notes = [new Note()];
         noStroke();
@@ -1488,7 +1496,8 @@ function handleNoteOn(e) {
       case 0: pitchMin = pitch;
               pitchMinStr = e.note.name+octave;
               break;
-      case 1: pitchMax = pitch;
+      case 1: if(pitch == pitchMin) return;
+              pitchMax = pitch;
               window.alert("Notes utilisées : "+pitchMinStr+" - "+e.note.name+octave);
     }
     noteOnCounter++;
