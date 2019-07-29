@@ -35,6 +35,7 @@ var dy;
 
 var notes;
 var nbrn = 0;
+var nbrf = 0;
 
 var nbrl = 0;
 
@@ -692,7 +693,13 @@ function checkAnswer() {
     //vitesse = Math.log(nbrn/10+2)+0.5;
   } else if (button == -1) {} else {
     if(!midi) lostMessage = "Perdu ! C'était un ".concat(degres[d],'...');
-    loose();
+    //loose();
+    nbrf++;
+    if(nbrf >= nbrn) loose();
+    else {
+      button = d;
+      checkAnswer();
+    }
     button = -1;
     cursor(ARROW);
   }
@@ -749,7 +756,7 @@ function loose() {
   //  width / 2 + 0.2*factor, height / 8.2);
 
   //textAlign(RIGHT, CENTER);
-  text('Score :'+' '+nbrn,
+  text('Score :'+' '+nbrn+' ('+(nbrn?floor(100*(nbrn-nbrf)/nbrn):100)+'%)',
     width / 2 + 0.2*factor, height / 6.3);
   //textAlign(LEFT, CENTER);
   //text(' '+nbrn,
@@ -988,7 +995,7 @@ function draw() {
     fill(noir);
     textSize(3 * factor);
     textAlign(CENTER, CENTER);
-    text('Score :'+' '+nbrn,
+    text('Score :'+' '+nbrn+' ('+(nbrn?floor(100*(nbrn-nbrf)/nbrn):100)+'%)',
          width / 2, 6 * height / 40);
     /*textAlign(LEFT, CENTER);
     text(' '+nbrn,
