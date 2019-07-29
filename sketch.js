@@ -1470,6 +1470,7 @@ function enableMidi() {
       var input = WebMidi.inputs[num-1];
       console.log('input : ',input.name);
       if(!input.hasListener('noteon', 'all', handleNoteOn)) {
+        console.log("il est libre !");
         input.addListener('noteon', 'all', handleNoteOn);
         input.addListener('noteoff', 'all', handleNoteOff);
       }
@@ -1570,6 +1571,10 @@ function handleNoteOff(e) {
 
 function disableMidi() {
   midi = false;
+
+  for(let i = 0; i < WebMidi.inputs.length; i++) {
+    WebMidi.inputs[i].removeListener();
+  }
 
   WebMidi.disable();
 
