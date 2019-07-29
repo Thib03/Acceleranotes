@@ -709,7 +709,7 @@ function loose() {
 
   hasLost = true;
 
-  if(newRecord && !pseudoOk)
+  if(newRecord && !pseudoOk && nbrf == 0)
   {
     drawPseudoButton();
     highscore = nbrn;
