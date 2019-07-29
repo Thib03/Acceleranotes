@@ -682,7 +682,7 @@ function checkAnswer() {
   if (button == d && !hasLost) {
     notes.splice(0, 1);
     nbrn++;
-    if(nbrn == highscore+1)
+    if(nbrn == highscore+1 && nbrf == 0)
     {
       newRecord = true;
     }
@@ -756,7 +756,7 @@ function loose() {
   //  width / 2 + 0.2*factor, height / 8.2);
 
   //textAlign(RIGHT, CENTER);
-  text('Score :'+' '+nbrn+' ('+(nbrn?floor(100*(nbrn-nbrf)/nbrn):100)+'%)',
+  text('Score :'+' '+nbrn+' ( '+(nbrn?floor(100*(nbrn-nbrf)/nbrn):100)+'% )',
     width / 2 + 0.2*factor, height / 6.3);
   //textAlign(LEFT, CENTER);
   //text(' '+nbrn,
@@ -786,6 +786,7 @@ function restart() {
 
   //notes = [new Note()];
   nbrn = 0;
+  nbrf = 0;
   vitesse = 1.2;
   newRecord = false;
   lostMessage = '';
@@ -995,7 +996,7 @@ function draw() {
     fill(noir);
     textSize(3 * factor);
     textAlign(CENTER, CENTER);
-    text('Score :'+' '+nbrn+' ('+(nbrn?floor(100*(nbrn-nbrf)/nbrn):100)+'%)',
+    text('Score :'+' '+nbrn+' ( '+(nbrn?floor(100*(nbrn-nbrf)/nbrn):100)+'% )',
          width / 2, 6 * height / 40);
     /*textAlign(LEFT, CENTER);
     text(' '+nbrn,
