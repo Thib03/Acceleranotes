@@ -698,6 +698,7 @@ function checkAnswer() {
     nbrf++;
     if(nbrf > nbrn) {
       nbrf = nbrn;
+      lostMessage = "Perdu ! Tu as fait trop de fautes...";
       loose();
     }
     else {
