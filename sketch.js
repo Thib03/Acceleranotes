@@ -700,6 +700,9 @@ function checkAnswer() {
     else {
       notes.splice(0, 1);
     }
+    if (notes.length == 0) {
+      notes = [new Note()];
+    }
     button = -1;
     cursor(ARROW);
   }
