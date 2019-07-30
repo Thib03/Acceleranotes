@@ -691,14 +691,14 @@ function checkAnswer() {
     }
     //vitesse = (Math.log(nbrn/10+2)+0.5)*60/frameRate();
     //vitesse = Math.log(nbrn/10+2)+0.5;
-  } else if (button == -1) {} else {
+  } else if (button == -1) {
+  } else {
     if(!midi) lostMessage = "Perdu ! C'était un ".concat(degres[d],'...');
     //loose();
     nbrf++;
     if(nbrf >= nbrn) loose();
     else {
-      button = d;
-      checkAnswer();
+      notes.splice(0, 1);
     }
     button = -1;
     cursor(ARROW);
