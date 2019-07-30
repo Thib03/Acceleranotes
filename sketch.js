@@ -696,7 +696,7 @@ function checkAnswer() {
     if(!midi) lostMessage = "Perdu ! C'était un ".concat(degres[d],'...');
     //loose();
     nbrf++;
-    if(nbrf >= nbrn) loose();
+    if(nbrf > nbrn) loose();
     else {
       notes.splice(0, 1);
     }
