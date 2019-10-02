@@ -527,56 +527,6 @@ function drawPortee() {
   }
 }
 
-/*function intToColour(c) {
-  switch (c) {
-    case 0:
-      return noir;
-    case 1:
-      return 'rgb(0,149,219)';
-    case 2:
-      return 'rgb(231,57,38)';
-    case 3:
-      return 'rgb(253,233,0)';
-    case 4:
-      return 'rgb(229,0,122)';
-    default:
-      return 'rgb(200,200,200)';
-  }
-}*/
-
-/*function generateColours(nbrc) {
-  var c;
-  var col = [];
-  var colours = [];
-
-  var nc = ceil(nbrc / 4);
-  var n;
-
-  for (c = 1; c <= 4; c++) {
-    for (n = 0; n < nc; n++) {
-      col.push(c);
-    }
-  }
-
-  var cOld;
-
-  for (let d = 0; d < 7; d++) {
-
-    c = floor(random(0, col.length));
-    while (colours[c] == cOld) {
-      c = floor(random(0, col.length));
-    }
-
-    colours = intToColour(col[c]);
-
-    cOld = col[c];
-
-    colours.splice(c, 1);
-  }
-
-  return colours;
-}*/
-
 function drawButtons() {
   noStroke();
   fill(255);
