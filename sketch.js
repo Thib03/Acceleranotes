@@ -1319,10 +1319,13 @@ function keyPressed() {
     checkAnswer();
   }
 
+  //console.log(keyCode);
+
   switch (keyCode) {
     //case 49:
     //case 81:
     //case 65:
+    case 90:
     case 89:
       button = 0;
       break;
