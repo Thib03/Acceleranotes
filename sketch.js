@@ -790,7 +790,7 @@ function setMarge() {
   factor = sqrt(pow(marge + pas, 2), pow(marge + pas, 2)) / 1.5;
 }
 
-var myUrl = 'https://www.cmne.ch/index.php?id=321&type=101&act=';
+//var myUrl = 'https://www.cmne.ch/index.php?id=321&type=101&act=';
 
 var response;
 
@@ -807,7 +807,7 @@ function gotData(data) {
 }
 
 function preload() {
-  loadJSON(myUrl+'listscore&g=1',gotData);
+  //loadJSON(myUrl+'listscore&g=1',gotData);
 
   clefSol = loadImage('clef_sol.png');
   clefFa = loadImage('clef_fa.png');
@@ -979,7 +979,7 @@ function draw() {
       } else if (!hasLost){
         lostMessage = '';
         loose();
-        time = millis();
+        myTime = millis();
       }
     }
   }
@@ -1146,7 +1146,7 @@ function mousePressed() {
       }
       var i;
 
-      while(httpGet(myUrl+'setscore&g=1&s='+highscore+'&p='+pseudo) == null)
+      /*while(httpGet(myUrl+'setscore&g=1&s='+highscore+'&p='+pseudo) == null)
       {
         i++;
         if(i > 1000)
@@ -1154,7 +1154,7 @@ function mousePressed() {
           console.log("erreur lors de l'upload du highscore");
           break;
         }
-      }
+      }*/
       refresh();
     }
   }
